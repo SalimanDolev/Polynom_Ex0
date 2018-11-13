@@ -160,11 +160,4 @@ public class Test1 {
 	@Test // this fuction implements in Init test
 	public void testToString() {
 	}
-	public void testGraphicPolynom() {
-		String s = "0.2x^4-1.5x^3+3.0x^2";
-		Polynom a = new Polynom();
-		a.Init(s);
-		a.GraphicPolynom();
-	}
-
 }

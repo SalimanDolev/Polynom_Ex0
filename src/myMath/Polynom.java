@@ -36,12 +36,14 @@ public class Polynom implements Polynom_able{
 		String [] _arraytemp = _temp.split("(?=\\+|\\-)");
 		int i = 1;
 		String []b = _arraytemp[0].split("X\\^");
+		b = _arraytemp[0].split("x\\^");
 		double coeff = Double.parseDouble(b[0]);
 		int power = Integer.parseInt(b[1]);
 		Monom m = new Monom(coeff,power);
 		this.monoms.add(m);
 		while (i<_arraytemp.length){
 			b = _arraytemp[i].split("X\\^");
+			b = _arraytemp[i].split("x\\^");
 			if (b.length==2) {
 				coeff = Double.parseDouble(b[0]);
 				power = Integer.parseInt(b[1]);
