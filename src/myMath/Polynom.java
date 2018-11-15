@@ -1,6 +1,7 @@
 package myMath;
 
 import java.awt.GraphicsEnvironment;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,7 +46,7 @@ public class Polynom implements Polynom_able{
 		while (i<_arraytemp.length){
 			b = _arraytemp[i].split("X\\^");
 			if (b.length!=2)
-			b = _arraytemp[i].split("x\\^");
+				b = _arraytemp[i].split("x\\^");
 			if (b.length==2) {
 				coeff = Double.parseDouble(b[0]);
 				power = Integer.parseInt(b[1]);
@@ -134,10 +135,11 @@ public class Polynom implements Polynom_able{
 			temp.monoms.get(i).set_coefficient(temp_coef*-1);
 			it1.next(); i++;
 		}
+		
 		double temp_coef = temp.monoms.get(i).get_coefficient();
 		temp.monoms.get(i).set_coefficient(temp_coef*-1);
 
-		this.add(p1);// doing a to the negetive polynom with the non negetive one.
+		this.add(temp);// doing add to the negetive polynom with the non negetive one.
 		if (this.isZero()){// checks if after the adding the polynom become zero polynom 
 			System.out.println("the polynom is a zero polynom");
 		}
@@ -249,12 +251,12 @@ public class Polynom implements Polynom_able{
 	 * @return 
 	 */
 	public Polynom copy() {
-	        Polynom_able polynom_able=new Polynom();
+		Polynom_able polynom_able=new Polynom();
 
-	        for(int i=0;i<monoms.size();i++){
-	            polynom_able.add(new Monom(monoms.get(i).get_coefficient(),monoms.get(i).get_power()));
-	        }
-	        return (Polynom) polynom_able;
+		for(int i=0;i<monoms.size();i++){
+			polynom_able.add(new Monom(monoms.get(i).get_coefficient(),monoms.get(i).get_power()));
+		}
+		return (Polynom) polynom_able;
 	}
 	/**
 	 * Compute a new Polynom which is the derivative of this Polynom
@@ -339,15 +341,17 @@ public class Polynom implements Polynom_able{
 		System.out.println(yData.toString());
 		XYChart chart = QuickChart.getChart("sample", "X" , "Y" , "y(x)" , xData, yData);
 		new SwingWrapper<XYChart>(chart).displayChart();
-	      
+
 
 	}
 	/**
 	 * this funvtiom plot the polynom to the screen and marks the max and min points
+	 * by getting the starting x and the end x of the praphic visualition
 	 */
-	public void graphPlot() {
-		LinePlotTest frame = new LinePlotTest(this ,-2.0 ,6.0 );
-        frame.setVisible(true);
+	public void graphPlot(double x0, double x1) {
+		LinePlotTest frame = new LinePlotTest(this ,x0 ,x1 );
+		frame.setVisible(true);
 	}
 }
+
 

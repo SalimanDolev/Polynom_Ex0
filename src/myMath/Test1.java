@@ -9,7 +9,7 @@ import org.knowm.xchart.internal.chartpart.Chart;
 import org.junit.Test;
 
 public class Test1 {
-	
+
 	@Test
 	public void testInitString() {
 		String s = "4.0X^6-3.0X^8";
@@ -23,7 +23,7 @@ public class Test1 {
 			System.out.println(p.toString());
 		}
 	}
-	
+
 
 	@Test
 	public void testAddPolynom_able() {
@@ -61,6 +61,7 @@ public class Test1 {
 		Polynom b = new Polynom();
 		b.Init(t);
 		a.substract(b);
+		System.out.println(a.toString());
 		if (a.monoms.get(0).get_coefficient() != 3.0 || a.monoms.get(0).get_power()!= 4 || 
 				a.monoms.get(1).get_coefficient() != 5.0 ||a.monoms.get(1).get_power() != 2 ||
 				a.monoms.get(2).get_coefficient() != -2.0 ||a.monoms.get(2).get_power() != 1){
@@ -142,7 +143,7 @@ public class Test1 {
 		if (b.area(0, 1, 20) != 6.850625)
 			fail("Not yet implemented");
 	}
-	
+
 	@Test // this fuction works as iterator in every fuction
 	public void testIteretor() {
 	}
@@ -154,10 +155,22 @@ public class Test1 {
 		a.Init(s);
 		double ans = a.f(2);
 		if (ans != 116)
-		fail("Not yet implemented");
+			fail("Not yet implemented");
 	}
 
 	@Test // this fuction implements in Init test
 	public void testToString() {
+	}
+	@Test
+	public void testgraphPlot() {
+		String s = "0.2X^4-1.5X^3+3.0X^2-1.0X^1-5";
+		Polynom a = new Polynom();
+		a.Init(s);
+		double x0 = -2;
+		double x1 =6;
+		a.graphPlot(x0,x1);
+		 if (a.isZero() || a.monoms.isEmpty()) {
+			 fail("problem with the polynom");
+		 }
 	}
 }
