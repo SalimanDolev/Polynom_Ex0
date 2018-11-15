@@ -50,7 +50,6 @@ public class Monom implements function{
 		for (int i = 0; i <= eps; i++) {
 			area_above =area_above + (deltaX * f(x0 + i*deltaX));
 		}
-
 		return area_above;
 	}
 	/**
@@ -88,14 +87,14 @@ public class Monom implements function{
 
 	public boolean IsZero(){
 		boolean a = true;
-		if(this.get_coefficient()==0)
+		if(this.get_coefficient()==0.0)
 			return a;
 		else return !a;
 	}
 
 	public boolean PowerIsZero(){
 		boolean a = true;
-		if(this.get_power()==0)
+		if(this.get_power()<0)
 			return a;
 		else return !a;
 	}

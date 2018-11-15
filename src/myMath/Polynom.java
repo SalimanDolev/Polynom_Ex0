@@ -36,13 +36,15 @@ public class Polynom implements Polynom_able{
 		String [] _arraytemp = _temp.split("(?=\\+|\\-)");
 		int i = 1;
 		String []b = _arraytemp[0].split("X\\^");
-		b = _arraytemp[0].split("x\\^");
+		if (b.length!=2)
+			b = _arraytemp[0].split("x\\^");
 		double coeff = Double.parseDouble(b[0]);
 		int power = Integer.parseInt(b[1]);
 		Monom m = new Monom(coeff,power);
 		this.monoms.add(m);
 		while (i<_arraytemp.length){
 			b = _arraytemp[i].split("X\\^");
+			if (b.length!=2)
 			b = _arraytemp[i].split("x\\^");
 			if (b.length==2) {
 				coeff = Double.parseDouble(b[0]);
@@ -205,11 +207,11 @@ public class Polynom implements Polynom_able{
 		Iterator<Monom> t = this.iteretor(); // makes an iterator
 		Monom m = t.next();
 		while (t.hasNext()){ 
-			if (m.IsZero()) // cheks if the monom is zero
+			if (m.IsZero()|| m.PowerIsZero()) // cheks if the monom is zero
 				t.remove();
 			m = t.next();
 		}
-		if (m.IsZero())
+		if (m.IsZero() || m.PowerIsZero())
 			t.remove();
 		if (this.monoms.isEmpty())  // if the list is empty after thr iteration return true
 			return true;
@@ -246,16 +248,13 @@ public class Polynom implements Polynom_able{
 	 * create a deep copy of this Polynum
 	 * @return 
 	 */
-	public Polynom copy(){
-		Iterator<Monom> it = this.iteretor();
-		Monom m = it.next();
-		Polynom p1 = new Polynom();
-		while(it.hasNext()){
-			p1.monoms.add(m);
-			m = it.next();
-		}
-		p1.monoms.add(m);
-		return p1;
+	public Polynom copy() {
+	        Polynom_able polynom_able=new Polynom();
+
+	        for(int i=0;i<monoms.size();i++){
+	            polynom_able.add(new Monom(monoms.get(i).get_coefficient(),monoms.get(i).get_power()));
+	        }
+	        return (Polynom) polynom_able;
 	}
 	/**
 	 * Compute a new Polynom which is the derivative of this Polynom
@@ -286,6 +285,7 @@ public class Polynom implements Polynom_able{
 			_area = _area + m.area(x0, x1, eps);
 		}
 		return Math.abs(_area);
+		//return _area;
 	}
 	/**
 	 * @return an Iterator (of Monoms) over this Polynom
@@ -303,7 +303,7 @@ public class Polynom implements Polynom_able{
 		double sum = 0; 
 		Iterator<Monom> a = iteretor();
 		while (a.hasNext())
-			sum = sum + a.next().f(x); // sum the value of each monom in the polynom
+			sum = sum + a.next().f(x);// sum the value of each monom in the polynom
 		return sum;
 	}
 	/**
@@ -341,6 +341,13 @@ public class Polynom implements Polynom_able{
 		new SwingWrapper<XYChart>(chart).displayChart();
 	      
 
+	}
+	/**
+	 * this funvtiom plot the polynom to the screen and marks the max and min points
+	 */
+	public void graphPlot() {
+		LinePlotTest frame = new LinePlotTest(this ,-2.0 ,6.0 );
+        frame.setVisible(true);
 	}
 }
 
