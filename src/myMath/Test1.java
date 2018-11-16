@@ -173,4 +173,18 @@ public class Test1 {
 			 fail("problem with the polynom");
 		 }
 	}
+	@Test // this test checks the area under and above of the function
+	public void testareaUnder() {
+		String s = "0.2X^4-1.5X^3+3.0X^2-1.0X^1-5";
+		Polynom a = new Polynom();
+		a.Init(s);
+		double x0 = -2;
+		double x1 =6;
+		a.graphPlot(x0,x1);
+		double eps = 0.01;
+		double area = a.areaUnder(x0, x1, eps);
+		if (area !=25.183633821940276) {
+			fail ("the area function is not working right");
+		}
+	}
 }

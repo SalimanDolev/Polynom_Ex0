@@ -36,17 +36,13 @@ public class Polynom implements Polynom_able{
 		String _temp = s;
 		String [] _arraytemp = _temp.split("(?=\\+|\\-)");
 		int i = 1;
-		String []b = _arraytemp[0].split("X\\^");
-		if (b.length!=2)
-			b = _arraytemp[0].split("x\\^");
+		String []b = _arraytemp[0].split("X\\^|x\\^");
 		double coeff = Double.parseDouble(b[0]);
 		int power = Integer.parseInt(b[1]);
 		Monom m = new Monom(coeff,power);
 		this.monoms.add(m);
 		while (i<_arraytemp.length){
-			b = _arraytemp[i].split("X\\^");
-			if (b.length!=2)
-				b = _arraytemp[i].split("x\\^");
+			b = _arraytemp[i].split("X\\^|x\\^");
 			if (b.length==2) {
 				coeff = Double.parseDouble(b[0]);
 				power = Integer.parseInt(b[1]);
@@ -351,6 +347,24 @@ public class Polynom implements Polynom_able{
 	public void graphPlot(double x0, double x1) {
 		LinePlotTest frame = new LinePlotTest(this ,x0 ,x1 );
 		frame.setVisible(true);
+	}
+	/**
+	 * this function coputes the area under above the function and under the x axis,
+	 * and adding it to the area that above the axis.
+	 * @param x0 = the left limit of the funtion 
+	 * @param x1 = the right limit of the funtion
+	 * @param eps = the eps of the area you want to compute
+	 * @return the area above and under the axis.
+	 */
+	
+	public double areaUnder (double x0,double x1 , double eps) {
+		double area = 0;
+		for (double i = x0; i < x1; i+=eps) {
+			if(this.f(i)<0) {
+				area+= eps*Math.abs(f(i));
+			}
+		}
+		return area;
 	}
 }
 
